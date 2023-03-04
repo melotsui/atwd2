@@ -1,0 +1,102 @@
+<p>main works!</p>
+
+<div id="marketListingPage">
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 id="pagetitle-h1">List Market</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">List</li>
+                    <li class="breadcrumb-item active">Market</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section" id="section">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <h5 class="card-title">Market Listing</h5>
+                                </li>
+                                <li>
+                                    <h5 class="card-title" style="padding-left: 20px;">
+                                        <a href='' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                            onclick="javascript:setConfirmDeleteModal('add', null)">
+
+                                            <div class="icon">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </div>
+                                        </a>
+                                    </h5>
+                                </li>
+                            </ol>
+                            <!-- Table with stripped rows -->
+                            <table class="table table-striped" id="table1">
+                            </table>
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+    </main><!-- End #main -->
+</div>
+
+<div id="logListingPage">
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 id="pagetitle-h1">List</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">List</li>
+                    <li class="breadcrumb-item active">Log</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section" id="section">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <h5 class="card-title">Log Listing</h5>
+                                </li>
+                            </ol>
+                            <!-- Table with stripped rows -->
+                            <table class="table table-striped" id="tableLog">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Message</th>
+                                        <th scope="col">Date Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="LogBody">
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+    </main><!-- End #main -->
+</div>

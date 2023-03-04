@@ -1,0 +1,59 @@
+<aside id="sidebar" class="sidebar">
+
+
+    <form class="sidebar-nav" id="sidebar-nav">
+        <label for="inputText" class="col-sm-12 col-form-label"
+            style="color:#6c757d;font-size: 24px;font-weight: bold;">Search Detail</label>
+        <div class="row mb-3">
+            <label for="inputText" class="col-sm-12 col-form-label">Market Name</label>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="search_name" oninput="marketList('left');return false;">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-12 col-form-label">Region
+                <!-- <a href=""  onclick="clickRegionAddIcon();return false;"><i class="bi bi-plus-circle"></i></a>   -->
+            </label>
+            <div class="col-sm-12">
+                <select class="form-select" aria-label="Default select example"
+                    onchange="loadDistrictFields();marketList('left');return false;" id="search_region">
+                    <option selected>Open this select menu</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-12 col-form-label">District
+                <!-- <a href="" onclick="clickDistrictAddIcon();return false;"><i class="bi bi-plus-circle"></i></a> -->
+            </label>
+            <div class="col-sm-12">
+                <select class="form-select" aria-label="Default select example" id="search_district"
+                    onchange="marketList('left');return false;">
+                    <option selected>Open this select menu</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <legend class="col-form-label col-sm-12 pt-0">Tenancy Commodity
+                <!-- <a href="" onclick="clickTCIcon();return false;"><i class="bi bi-search"></i></a>  -->
+            </legend>
+            <div class="col-sm-12" id="search_tc" onchange="marketList('left');return false;">
+
+
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <!-- <label class="col-sm-12 col-form-label">Submit</label> -->
+            <div class="col-sm-12">
+                <!-- <button type="submit" class="btn btn-primary" onclick="marketList('left'); return false;">Search</button>  -->
+                <button type="clear" onclick="marketList('clear');return false;" class="btn btn-primary"
+                    style="background-color: #6c757d;">Clear</button>
+            </div>
+        </div>
+
+    </form><!-- End General Form Elements -->
+
+</aside><!-- End Sidebar-->
