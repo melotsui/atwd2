@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Region } from './region.model';
+import { Bussiness_Hour } from './business_hour.model';
+import { District } from './district.model';
+import { TC } from './tc.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,29 +14,49 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 export class SidebarComponent implements OnInit {
   serverData: Object | null = null;
   sideBarForm: FormGroup;
+  http: HttpClient;
+  region: Region[];
+  bussiness_hour: Bussiness_Hour[];
+  district: District[];
+  tc: TC[];
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, http: HttpClient) {
     this.sideBarForm = fb.group({
-      'search_name': ['']
+      'search_name': '',
+      'search_region': '',
+      'search_district': '',
+      'search_tc': []
     });
+    this.http = http;
+    this.region = [];
+    this.bussiness_hour = [];
+    this.district = [];
+    this.tc = [];
   }
 
   ngOnInit() {
-    console.log(this.sideBarForm.value['search_name']);
+    this.loadSearchFields();
   }
 
-  // loadSearchFields() {
-  //   this.serverData = null;
-  //   this.http.get<any>('http://localhost:8080/atwd/index.php/market/field')
-  //     .subscribe({
-  //       next: (res) => {
-  //         console.log("Server returns: " + res);
-  //         this.serverData = res;
-  //       },
-  //       error: (err) => {
-  //         this.serverData = "Server call failed: " + err
-  //       }
-  //     });
-  // }
+  loadSearchFields() {
+    this.serverData = null;
+    this.http.get<any>('http://localhost:8080/atwd/index.php/market/field')
+      .subscribe({
+        next: (res) => {
+          console.log("Server returns: " + res['Code']);
+          this.serverData = res;
+          console.log(this.serverData);
+          console.log(res['Data']['region']);
+          this.region = res['Data']['region'];
+          this.bussiness_hour = res['Data']['bussinessHour'];
+          this.district = res['Data']['district'];
+          this.tc = res['Data']['tc'];
+        },
+        error: (err) => {
+          this.serverData = "Server call failed: " + err
+          console.log(`Server call failed: ${this.serverData}`);
+        }
+      });
+  }
 
 }

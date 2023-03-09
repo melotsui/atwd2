@@ -15,8 +15,9 @@
             </label>
             <div class="col-sm-12">
                 <select class="form-select" aria-label="Default select example"
-                    onchange="" id="search_region" >
-                    <option selected>Open this select menu</option>
+                    onchange="" id="search_region" formControlName="search_region">
+                    <option selected></option>
+                    <option *ngFor="let item of region" [ngValue]="item.region_e">{{item.region_e}}</option>
                 </select>
             </div>
         </div>
@@ -26,8 +27,9 @@
             </label>
             <div class="col-sm-12">
                 <select class="form-select" aria-label="Default select example" id="search_district"
-                    onchange="">
-                    <option selected>Open this select menu</option>
+                    onchange="" formControlName="search_district">
+                    <option selected></option>
+                    <option *ngFor="let item of district" [ngValue]="item.District_e">{{item.District_e}}</option>
                 </select>
             </div>
         </div>
@@ -35,7 +37,15 @@
             <legend class="col-form-label col-sm-12 pt-0">Tenancy Commodity
                 <!-- <a href="" onclick="clickTCIcon();return false;"><i class="bi bi-search"></i></a>  -->
             </legend>
-            <div class="col-sm-12" id="search_tc" onchange=""></div>
+            <div class="col-sm-12" id="search_tc" onchange="" >
+                <div class="form-check" *ngFor="let item of tc">
+                    <input class="form-check-input tc" type="checkbox" id="checkBoxTC" 
+                        formControlName="search_tc" value="{{item.Tenancy_Commodity_e}}">
+                    <label class="form-check-label" for="checkBoxTC">
+                        {{item.Tenancy_Commodity_e}}
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="row mb-3">
             <!-- <label class="col-sm-12 col-form-label">Submit</label> -->
