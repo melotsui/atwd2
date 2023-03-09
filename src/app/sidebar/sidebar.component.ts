@@ -59,4 +59,7 @@ export class SidebarComponent implements OnInit {
       });
   }
 
+  btnClear() {
+    this.sideBarForm.reset();
+  }
 }
