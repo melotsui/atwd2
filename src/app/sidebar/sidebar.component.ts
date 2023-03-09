@@ -43,10 +43,7 @@ export class SidebarComponent implements OnInit {
     this.http.get<any>('http://localhost:8080/atwd/index.php/market/field')
       .subscribe({
         next: (res) => {
-          console.log("Server returns: " + res['Code']);
           this.serverData = res;
-          console.log(this.serverData);
-          console.log(res['Data']['region']);
           this.region = res['Data']['region'];
           this.bussiness_hour = res['Data']['bussinessHour'];
           this.district = res['Data']['district'];
@@ -61,5 +58,28 @@ export class SidebarComponent implements OnInit {
 
   btnClear() {
     this.sideBarForm.reset();
+    this.onChangeSearch();
+  }
+
+  onChangeRegion() {
+    this.sideBarForm.controls['search_district'].setValue('-');
+    let region = this.sideBarForm.value.search_region != '-' ? this.sideBarForm.value.search_region : ''
+    this.serverData = null;
+    this.http.get<any>('http://localhost:8080/atwd/index.php/market/field/district/' + region)
+      .subscribe({
+        next: (res) => {
+          this.serverData = res;
+          this.district = res['Data']['district'];
+        },
+        error: (err) => {
+          this.serverData = "Server call failed: " + err
+          console.log(`Server call failed: ${this.serverData}`);
+        }
+      });
+    this.onChangeSearch();
+  }
+
+  onChangeSearch() {
+    console.log('onChangeSearch');
   }
 }
