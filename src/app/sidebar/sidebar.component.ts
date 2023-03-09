@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Region } from './region.model';
@@ -13,12 +13,14 @@ import { TC } from './tc.model';
 })
 export class SidebarComponent implements OnInit {
   serverData: Object | null = null;
-  sideBarForm: FormGroup;
   http: HttpClient;
+  sideBarForm: FormGroup;
   region: Region[];
   bussiness_hour: Bussiness_Hour[];
   district: District[];
   tc: TC[];
+  @Output() callParent = new EventEmitter();
+  sidebarDataToParent: any;
 
   constructor(fb: FormBuilder, http: HttpClient) {
     this.sideBarForm = fb.group({
@@ -32,6 +34,12 @@ export class SidebarComponent implements OnInit {
     this.bussiness_hour = [];
     this.district = [];
     this.tc = [];
+    this.sidebarDataToParent = new Object({
+      name: '',
+      region: '',
+      district: '',
+      tc: ''
+    });
   }
 
   ngOnInit() {
@@ -57,8 +65,18 @@ export class SidebarComponent implements OnInit {
   }
 
   btnClear() {
+    this.msgToParent();
     this.sideBarForm.reset();
     this.onChangeSearch();
+  }
+
+  msgToParent() { 
+    this.sidebarDataToParent.name = this.sideBarForm.value.search_name;
+    this.sidebarDataToParent.region = this.sideBarForm.value.search_region;
+    this.sidebarDataToParent.district = this.sideBarForm.value.search_district;
+    this.sidebarDataToParent.tc = this.sideBarForm.value.search_tc;
+    console.log(this.sidebarDataToParent);
+    this.callParent.emit(this.sidebarDataToParent); 
   }
 
   onChangeRegion() {

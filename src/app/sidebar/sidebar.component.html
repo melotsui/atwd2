@@ -6,11 +6,11 @@
             <label for="inputText" class="col-sm-12 col-form-label">Market Name</label>
             <div class="col-sm-12">
                 <input type="text" class="form-control" id="search_name" (input)="onChangeSearch();" formControlName="search_name"
-                    value="">
+                    [value]="">
             </div>
         </div>
         <div class="row mb-3">
-            <label class="col-sm-12 col-form-label">Region
+            <label class="col-sm-12 col-form-label">Region 
                 <!-- <a href=""  onclick="clickRegionAddIcon();return false;"><i class="bi bi-plus-circle"></i></a>   -->
             </label>
             <div class="col-sm-12">
@@ -39,7 +39,7 @@
             </legend>
             <div class="col-sm-12">
                 <select class="form-select" aria-label="Default select example" id="search_district" (change)="onChangeSearch();"
-                    formControlName="search_district">
+                    formControlName="search_tc">
                     <option selected value="-"></option>
                     <option *ngFor="let item of tc" [ngValue]="item.Tenancy_Commodity_e">{{item.Tenancy_Commodity_e}}
                     </option>

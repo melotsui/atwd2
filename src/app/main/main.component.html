@@ -37,6 +37,29 @@
                             </ol>
                             <!-- Table with stripped rows -->
                             <table class="table table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Region</th>
+                                        <th scope="col">District</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of marketList">
+                                        <th scope="row">{{item['Market_ID']}}</th>
+                                        <td>{{item['Market_Name']}}</td>
+                                        <td>{{item['Region']}}</td>
+                                        <td>{{item['District']}}</td>
+                                        <td>{{item['Address']}}</td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ><i class="bi bi-pencil-fill"></i></a></td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"><i class="bi bi-eye"></i></a></td>
+                                    </tr>
+                                </tbody>
+                                {{tableHTML}} {{parent_sidebarData.name}} {{parent_sidebarData.region}}
+                                {{parent_sidebarData.district}} {{parent_sidebarData.tc}}
                             </table>
                             <!-- End Table with stripped rows -->
 

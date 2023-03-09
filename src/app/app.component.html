@@ -1,8 +1,9 @@
+<input type="hidden" [(ngModel)]="parent_sidebarData" />
 <!-- ======= Header ======= -->
 <app-header></app-header>
 <!-- ======= Sidebar ======= -->
-<app-sidebar></app-sidebar>
+<app-sidebar (callParent)="getMsgFromBaby($event)"></app-sidebar>
 <!-- ======= Main ======= -->
-<app-main></app-main>
+<app-main [parent_sidebarData]="parent_sidebarData" ></app-main>
 
 <app-modal></app-modal>
