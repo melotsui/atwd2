@@ -12,34 +12,44 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class ModalComponent implements OnInit {
   modalForm: FormGroup;
   http: HttpClient;
-  modalTitle: String;
   iframeUrl: SafeResourceUrl;
-  @Input() mainToModal: any | null = [];
+  @Input() mainToModal: any;
 
   constructor(public sanitizer: DomSanitizer, fb: FormBuilder, http: HttpClient) {
     this.modalForm = fb.group({
-      'modalMarketID': '',
-      'modalName_e': '',
-      'modalName_c': '',
-      'modalRegion_e': '',
-      'modalRegion_c': '',
-      'modalDistrict_e': '',
-      'modalDistrict_c': '',
-      'modalAddress_e': '',
-      'modalAddress_c': '',
-      'modalBH_e': '',
-      'modalBH_c': '',
-      'modalContact1': '',
-      'modalContact2': '',
-      'modalCoordinate': '22.29123,114.20548'
+      'modalMarketID': null,
+      'modalName_e': null,
+      'modalName_c': null,
+      'modalRegion_e': null,
+      'modalRegion_c': null,
+      'modalDistrict_e': null,
+      'modalDistrict_c': null,
+      'modalAddress_e': null,
+      'modalAddress_c': null,
+      'modalBH_e': null,
+      'modalBH_c': null,
+      'modalContact1': null,
+      'modalContact2': null,
+      'modalCoordinate': null
     });
     this.http = http;
-    this.modalTitle = 'Please confirm your';
-    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+this.modalForm.value.modalCoordinate+'&t=&z=13&ie=UTF8&iwloc=&output=embed');
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.modalForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
   }
 
   ngOnInit() {
-    console.log('this.iframeUrl: '+this.iframeUrl);
+    this.mainToModal = ({
+      action: '',
+      mID: null
+    });
+    console.log('this.iframeUrl: ' + this.iframeUrl);
   }
 
+  resetModalForm() {
+    this.modalForm.reset();
+  }
+
+  setModalForm() {
+    this.modalForm.controls['modalMarketID'].setValue(this.mainToModal.mID);
+    console.log(this.modalForm.value);
+  }
 }

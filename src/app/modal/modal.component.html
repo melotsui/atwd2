@@ -1,28 +1,33 @@
-<div class="modal fade " id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="confirmDeleteModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content ">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">{{modalTitle}}</h5>
+                <h5 *ngIf="mainToModal.action == 'add'" class="modal-title" id="confirmDeleteModalLabel">Add Market</h5>
+                <h5 *ngIf="mainToModal.action == 'edit'" class="modal-title" id="confirmDeleteModalLabel">Edit Market</h5>
+                <h5 *ngIf="mainToModal.action == 'detail'" class="modal-title" id="confirmDeleteModalLabel">Market Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <input *ngIf="mainToModal.mID == null" type="hidden" [value]="resetModalForm()" /> -->
+                <input *ngIf="mainToModal.mID != null" type="hidden" [value]="resetModalForm()" />
+                <input *ngIf="mainToModal.mID != null" type="hidden" [value]="setModalForm()" />
             </div>
             <form [formGroup]="modalForm">
                 <div class="modal-body">
                     <div class="input-group mb-2" style="display: none;">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Market ID</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalMarketID" id="modalMarketID" readonly>
+                            formControlName="modalMarketID" id="modalMarketID" [value]="mainToModal.mID" readonly>
                     </div>
                     <!-- Market Name -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Market Name</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalName_e" id="modalName_e" style="background-color:#f8f9fa;" readonly>
+                            formControlName="modalName_e" id="modalName_e" [value]="mainToModal.mID" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">街市</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalName_c" id="modalName_c" style="background-color:#f8f9fa;" readonly>
+                            formControlName="modalName_c" id="modalName_c" [value]="" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End Market Name -->
                     <!-- Region -->
@@ -116,7 +121,7 @@
                     </div>
                     <!-- End Tenancy Commodity -->
                     <!-- Google Map -->
-                    <div *ngIf="this.modalForm.value.modalCoordinate != '' && mainToModal.action == 'detail'"
+                    <div *ngIf="this.modalForm.value.modalCoordinate != '' && this.modalForm.value.modalCoordinate != null && mainToModal.action == 'detail'"
                         id="map-container-google-2" class="z-depth-1-half map-container" style="width:100%;">
                         <iframe [src]="iframeUrl" frameborder="0" style="border:0;width:100%;" allowfullscreen></iframe>
                     </div>
@@ -125,9 +130,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             id="btnModalCancel">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="modalAddButton" onclick="">Add</button>
-                        <button type="button" class="btn btn-primary" id="modalUpdateButton" onclick="">Update</button>
-                        <button type="button" class="btn btn-primary" id="modalDeleteButton" onclick="">Delete</button>
+                        <button type="button" *ngIf="mainToModal.action == 'add'" class="btn btn-primary" id="modalAddButton" (click)="resetModalForm()">Add</button>
+                        <button type="button" *ngIf="mainToModal.action == 'edit'" class="btn btn-primary" id="modalUpdateButton" (click)="setModalForm()">Update</button>
+                        <button type="button" *ngIf="mainToModal.action == 'detail'" class="btn btn-primary" id="modalDeleteButton" (click)="setModalForm()">Delete</button>
                     </div>
                     <!-- End Modal Button -->
                 </div>

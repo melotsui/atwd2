@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { MainComponent } from './main/main.component';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +13,6 @@ export class AppComponent implements OnInit {
   parent_marketList: any;
   mainToModal: any;
 
-  constructor() {
-  }
 
   getMsgFromSidebar(event: any) {
     this.parent_marketList = event;
