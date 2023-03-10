@@ -1,9 +1,10 @@
+<input type="hidden" [(ngModel)]="mainToModal" />
 <input type="hidden" [(ngModel)]="parent_marketList" />
 <!-- ======= Header ======= -->
 <app-header></app-header>
 <!-- ======= Sidebar ======= -->
-<app-sidebar (callParent)="getMsgFromBaby($event)"></app-sidebar>
+<app-sidebar (callParent)="getMsgFromSidebar($event)"></app-sidebar>
 <!-- ======= Main ======= -->
-<app-main [parent_marketList]="parent_marketList"></app-main>
+<app-main [parent_marketList]="parent_marketList" (callParent)="getMsgFromMain($event)"></app-main>
 
-<app-modal></app-modal>
+<app-modal [mainToModal]="mainToModal" ></app-modal>

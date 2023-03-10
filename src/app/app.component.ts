@@ -5,19 +5,24 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'Market';
   parent_marketList: any;
+  mainToModal: any;
 
   constructor() {
   }
 
-  getMsgFromBaby(event: any) {
+  getMsgFromSidebar(event: any) {
     this.parent_marketList = event;
-    // console.log(`Parent: ${this.parent_marketList[0].Region}`)
+  }
+
+  getMsgFromMain(event: any) {
+    this.mainToModal = event;
   }
 
   ngOnInit() {
-    console.log(`title: ${this.title}`);
+    
   }
 }

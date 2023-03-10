@@ -26,7 +26,7 @@
                                 <li>
                                     <h5 class="card-title" style="padding-left: 20px;">
                                         <a href='' data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                                            onclick="">
+                                            (click)="setModal('add')">
 
                                             <div class="icon">
                                                 <i class="bi bi-plus-circle"></i>
@@ -54,8 +54,8 @@
                                         <td>{{item['Region']}}</td>
                                         <td>{{item['District']}}</td>
                                         <td>{{item['Address']}}</td>
-                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" ><i class="bi bi-pencil-fill"></i></a></td>
-                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"><i class="bi bi-eye"></i></a></td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" (click)="setModal('edit', item['Market_ID'])"><i class="bi bi-pencil-fill"></i></a></td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" (click)="setModal('detail', item['Market_ID'])"><i class="bi bi-eye"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
