@@ -15,6 +15,7 @@ export class MainComponent implements OnInit {
   tableHTML: String;
   marketList: any[];
   @Input() parent_sidebarData: any;
+  @Input() parent_marketList: any | null = [];
 
   constructor(http: HttpClient) {
     this.http = http;
@@ -24,24 +25,8 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     console.log(`Main: ${this.parent_sidebarData.region}`);
-    this.loadMarketList();
+
   }
 
-  loadMarketList() {
-    this.serverData = null;
-    this.http.get<any>('http://localhost:8080/atwd/index.php/market')
-      .subscribe({
-        next: (res) => {
-          this.serverData = res;
-          console.log(res);
-          this.marketList = res['Data'];
-          console.log(this.marketList);
-        },
-        error: (err) => {
-          this.serverData = "Server call failed: " + err
-          console.log(`Server call failed: ${this.serverData}`);
-        }
-      });
-  }
 
 }

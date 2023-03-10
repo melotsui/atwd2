@@ -20,7 +20,8 @@ export class SidebarComponent implements OnInit {
   district: District[];
   tc: TC[];
   @Output() callParent = new EventEmitter();
-  sidebarDataToParent: any;
+  parent_marketList: any[];
+  marketList: any[];
 
   constructor(fb: FormBuilder, http: HttpClient) {
     this.sideBarForm = fb.group({
@@ -34,16 +35,13 @@ export class SidebarComponent implements OnInit {
     this.bussiness_hour = [];
     this.district = [];
     this.tc = [];
-    this.sidebarDataToParent = new Object({
-      name: '',
-      region: '',
-      district: '',
-      tc: ''
-    });
+    this.marketList = [];
+    this.parent_marketList = [];
   }
 
   ngOnInit() {
     this.loadSearchFields();
+    this.loadMarketList();
   }
 
   loadSearchFields() {
@@ -64,19 +62,32 @@ export class SidebarComponent implements OnInit {
       });
   }
 
+  loadMarketList() {
+    this.serverData = null;
+    this.http.get<any>('http://localhost:8080/atwd/index.php/market')
+      .subscribe({
+        next: (res) => {
+          this.serverData = res;
+          console.log(res);
+          this.marketList = res['Data'];
+          this.msgToParent();
+          console.log(this.marketList);
+        },
+        error: (err) => {
+          this.serverData = "Server call failed: " + err
+          console.log(`Server call failed: ${this.serverData}`);
+        }
+      });
+  }
+
   btnClear() {
-    this.msgToParent();
     this.sideBarForm.reset();
     this.onChangeSearch();
   }
 
-  msgToParent() { 
-    this.sidebarDataToParent.name = this.sideBarForm.value.search_name;
-    this.sidebarDataToParent.region = this.sideBarForm.value.search_region;
-    this.sidebarDataToParent.district = this.sideBarForm.value.search_district;
-    this.sidebarDataToParent.tc = this.sideBarForm.value.search_tc;
-    console.log(this.sidebarDataToParent);
-    this.callParent.emit(this.sidebarDataToParent); 
+  msgToParent() {
+    this.parent_marketList = this.marketList;
+    this.callParent.emit(this.marketList);
   }
 
   onChangeRegion() {
