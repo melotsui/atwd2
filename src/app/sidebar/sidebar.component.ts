@@ -12,7 +12,6 @@ import { TC } from './tc.model';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  serverData: Object | null = null;
   http: HttpClient;
   sideBarForm: FormGroup;
   region: Region[];
@@ -20,8 +19,7 @@ export class SidebarComponent implements OnInit {
   district: District[];
   tc: TC[];
   @Output() callParent = new EventEmitter();
-  parent_marketList: any[];
-  marketList: any[];
+  marketListToParent: any[];
 
   constructor(fb: FormBuilder, http: HttpClient) {
     this.sideBarForm = fb.group({
@@ -35,8 +33,7 @@ export class SidebarComponent implements OnInit {
     this.bussiness_hour = [];
     this.district = [];
     this.tc = [];
-    this.marketList = [];
-    this.parent_marketList = [];
+    this.marketListToParent = [];
   }
 
   ngOnInit() {
@@ -45,37 +42,30 @@ export class SidebarComponent implements OnInit {
   }
 
   loadSearchFields() {
-    this.serverData = null;
     this.http.get<any>('http://localhost:8080/atwd/index.php/market/field')
       .subscribe({
         next: (res) => {
-          this.serverData = res;
           this.region = res['Data']['region'];
           this.bussiness_hour = res['Data']['bussinessHour'];
           this.district = res['Data']['district'];
           this.tc = res['Data']['tc'];
         },
         error: (err) => {
-          this.serverData = "Server call failed: " + err
-          console.log(`Server call failed: ${this.serverData}`);
+          console.log(`Server call failed: ${err}`);
         }
       });
   }
 
   loadMarketList() {
-    this.serverData = null;
     this.http.get<any>('http://localhost:8080/atwd/index.php/market')
       .subscribe({
         next: (res) => {
-          this.serverData = res;
           console.log(res);
-          this.marketList = res['Data'];
+          this.marketListToParent = res['Data'];
           this.msgToParent();
-          console.log(this.marketList);
         },
         error: (err) => {
-          this.serverData = "Server call failed: " + err
-          console.log(`Server call failed: ${this.serverData}`);
+          console.log(`Server call failed: ${err}`);
         }
       });
   }
@@ -86,29 +76,41 @@ export class SidebarComponent implements OnInit {
   }
 
   msgToParent() {
-    this.parent_marketList = this.marketList;
-    this.callParent.emit(this.marketList);
+    this.callParent.emit(this.marketListToParent);
   }
 
   onChangeRegion() {
     this.sideBarForm.controls['search_district'].setValue('-');
     let region = this.sideBarForm.value.search_region != '-' ? this.sideBarForm.value.search_region : ''
-    this.serverData = null;
     this.http.get<any>('http://localhost:8080/atwd/index.php/market/field/district/' + region)
       .subscribe({
         next: (res) => {
-          this.serverData = res;
           this.district = res['Data']['district'];
         },
         error: (err) => {
-          this.serverData = "Server call failed: " + err
-          console.log(`Server call failed: ${this.serverData}`);
+          console.log(`Server call failed: ${err}`);
         }
       });
     this.onChangeSearch();
   }
 
   onChangeSearch() {
-    console.log('onChangeSearch');
+    let lang = 'e';
+    let search_name = this.sideBarForm.value.search_name == '' || this.sideBarForm.value.search_name == null ? '-' : this.sideBarForm.value.search_name;
+    let search_region = this.sideBarForm.value.search_region == '' || this.sideBarForm.value.search_region == null ? '-' : this.sideBarForm.value.search_region;
+    let search_district = this.sideBarForm.value.search_district == '' || this.sideBarForm.value.search_district == null ? '-' : this.sideBarForm.value.search_district;
+    let tcStr = this.sideBarForm.value.search_tc == '' || this.sideBarForm.value.search_tc == null ? '-' : this.sideBarForm.value.search_tc;
+    // console.log(`http://localhost:8080/atwd/index.php/market/search/${lang}/${search_name}/${search_region}/${search_district}/${tcStr}`);
+    this.http.get<any>(`http://localhost:8080/atwd/index.php/market/search/${lang}/${search_name}/${search_region}/${search_district}/${tcStr}`)
+      .subscribe({
+        next: (res) => {
+          this.marketListToParent = res['Data'];
+          console.log(res);
+          this.msgToParent();
+        },
+        error: (err) => {
+          console.log(`Server call failed: ${err}`);
+        }
+      });
   }
 }

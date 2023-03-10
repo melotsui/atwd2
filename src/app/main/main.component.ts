@@ -13,18 +13,14 @@ export class MainComponent implements OnInit {
   serverData: Object | null = null;
   http: HttpClient;
   tableHTML: String;
-  marketList: any[];
-  @Input() parent_sidebarData: any;
   @Input() parent_marketList: any | null = [];
 
   constructor(http: HttpClient) {
     this.http = http;
     this.tableHTML = 'tableHTML';
-    this.marketList = [];
   }
 
   ngOnInit() {
-    console.log(`Main: ${this.parent_sidebarData.region}`);
 
   }
 
