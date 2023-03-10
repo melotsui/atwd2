@@ -35,9 +35,7 @@ export class ModalComponent implements OnInit {
     });
     this.http = http;
     this.modalTitle = 'Please confirm your';
-    this.iframeUrl = this.modalForm.value.modalCoordinate == '' ? 
-        this.sanitizer.bypassSecurityTrustResourceUrl('') : 
-        this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+this.modalForm.value.modalCoordinate+'&t=&z=13&ie=UTF8&iwloc=&output=embed');
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+this.modalForm.value.modalCoordinate+'&t=&z=13&ie=UTF8&iwloc=&output=embed');
   }
 
   ngOnInit() {
