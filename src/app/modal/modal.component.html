@@ -1,40 +1,42 @@
 <div class="modal fade" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="confirmDeleteModalLabel" aria-hidden="true" >
+    aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content ">
             <div class="modal-header">
                 <h5 *ngIf="mainToModal.action == 'add'" class="modal-title" id="confirmDeleteModalLabel">Add Market</h5>
-                <h5 *ngIf="mainToModal.action == 'edit'" class="modal-title" id="confirmDeleteModalLabel">Edit Market</h5>
-                <h5 *ngIf="mainToModal.action == 'detail'" class="modal-title" id="confirmDeleteModalLabel">Market Detail</h5>
+                <h5 *ngIf="mainToModal.action == 'edit'" class="modal-title" id="confirmDeleteModalLabel">Edit Market
+                </h5>
+                <h5 *ngIf="mainToModal.action == 'detail'" class="modal-title" id="confirmDeleteModalLabel">Market
+                    Detail</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <!-- <input *ngIf="mainToModal.mID == null" type="hidden" [value]="resetModalForm()" /> -->
-                <input *ngIf="mainToModal.mID != null" type="hidden" [value]="resetModalForm()" />
-                <input *ngIf="mainToModal.mID != null" type="hidden" [value]="setModalForm()" />
+                <input *ngIf="mainToModal.mID == null" type="hidden" [value]="resetModalForm(modalRegion_e, modalCoordinate)" />
+                <input *ngIf="mainToModal.mID != null" type="hidden" [value]="setModalForm(modalRegion_e, modalCoordinate)" />
             </div>
-            <form [formGroup]="modalForm">
+            <form>
                 <div class="modal-body">
                     <div class="input-group mb-2" style="display: none;">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Market ID</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalMarketID" id="modalMarketID" [value]="mainToModal.mID" readonly>
+                            id="modalMarketID" #modalMarketID [value]="mainToModal.mID" readonly>
                     </div>
                     <!-- Market Name -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Market Name</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalName_e" id="modalName_e" [value]="mainToModal.mID" style="background-color:#f8f9fa;" readonly>
+                            id="modalName_e" #modalName_e style="background-color:#f8f9fa;">
                     </div>
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">街市</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalName_c" id="modalName_c" [value]="" style="background-color:#f8f9fa;" readonly>
+                            id="modalName_c" #modalName_c [value]="" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End Market Name -->
                     <!-- Region -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Region</span>
                         <select class="form-select col-sm-9" aria-label="Default select example" onchange=""
-                            formControlName="modalRegion_e" id="modalRegion_e">
+                            id="modalRegion_e" #modalRegion_e>
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -45,15 +47,14 @@
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">區域</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalRegion_c" id="modalRegion_c" style="background-color:#f8f9fa;"
-                            readonly>
+                            id="modalRegion_c" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End Region -->
                     <!-- District -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">District</span>
                         <select class="form-select col-sm-9" aria-label="Default select example" onchange=""
-                            formControlName="modalDistrict_e" id="modalDistrict_e">
+                            id="modalDistrict_e">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -64,51 +65,45 @@
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">地區</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalDistrict_c" id="modalDistrict_c" style="background-color:#f8f9fa;"
-                            readonly>
+                            id="modalDistrict_c" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End District -->
                     <!-- Address -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Address</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalAddress_e" id="modalAddress_e" style="background-color:#f8f9fa;"
-                            readonly>
+                            id="modalAddress_e" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">地址</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalAddress_c" id="modalAddress_c" style="background-color:#f8f9fa;"
-                            readonly>
+                            id="modalAddress_c" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End Address -->
                     <!-- Business Hours -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Business Hours</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1" id="modalBH_e"
-                            formControlName="modalBH_e" style="background-color:#f8f9fa;" readonly>
+                            style="background-color:#f8f9fa;" readonly>
                     </div>
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">營業時間</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1" id="modalBH_c"
-                            formControlName="modalBH_c" style="background-color:#f8f9fa;" readonly>
+                            style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End Business Hours -->
                     <!-- Contact -->
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Contact 聯絡電話</span>
                         <input type="text" class="form-control col-sm-5" aria-describedby="basic-addon1"
-                            formControlName="modalContact1" id="modalContact1" style="background-color:#f8f9fa;"
-                            readonly>
+                            id="modalContact1" style="background-color:#f8f9fa;" readonly>
                         <input type="text" class="form-control col-sm-5" aria-describedby="basic-addon1"
-                            formControlName="modalContact2" id="modalContact2" style="background-color:#f8f9fa;"
-                            readonly>
+                            id="modalContact2" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <div class="input-group mb-2">
                         <span class="input-group-text col-sm-3" id="basic-addon1">Coordinate</span>
                         <input type="text" class="form-control col-sm-9" aria-describedby="basic-addon1"
-                            formControlName="modalCoordinate" id="modalCoordinate" style="background-color:#f8f9fa;"
-                            readonly>
+                            #modalCoordinate id="modalCoordinate" style="background-color:#f8f9fa;" readonly>
                     </div>
                     <!-- End Contact -->
                     <!-- Tenancy Commodity -->
@@ -121,7 +116,7 @@
                     </div>
                     <!-- End Tenancy Commodity -->
                     <!-- Google Map -->
-                    <div *ngIf="this.modalForm.value.modalCoordinate != '' && this.modalForm.value.modalCoordinate != null && mainToModal.action == 'detail'"
+                    <div *ngIf="this.iframeUrl != '' && this.iframeUrl != null && mainToModal.action == 'detail'"
                         id="map-container-google-2" class="z-depth-1-half map-container" style="width:100%;">
                         <iframe [src]="iframeUrl" frameborder="0" style="border:0;width:100%;" allowfullscreen></iframe>
                     </div>
@@ -130,9 +125,12 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             id="btnModalCancel">Cancel</button>
-                        <button type="button" *ngIf="mainToModal.action == 'add'" class="btn btn-primary" id="modalAddButton" (click)="resetModalForm()">Add</button>
-                        <button type="button" *ngIf="mainToModal.action == 'edit'" class="btn btn-primary" id="modalUpdateButton" (click)="setModalForm()">Update</button>
-                        <button type="button" *ngIf="mainToModal.action == 'detail'" class="btn btn-primary" id="modalDeleteButton" (click)="setModalForm()">Delete</button>
+                        <button type="button" *ngIf="mainToModal.action == 'add'" class="btn btn-primary"
+                            id="modalAddButton" >Add</button>
+                        <button type="button" *ngIf="mainToModal.action == 'edit'" class="btn btn-primary"
+                            id="modalUpdateButton" >Update</button>
+                        <button type="button" *ngIf="mainToModal.action == 'detail'" class="btn btn-primary"
+                            id="modalDeleteButton" >Delete</button>
                     </div>
                     <!-- End Modal Button -->
                 </div>
