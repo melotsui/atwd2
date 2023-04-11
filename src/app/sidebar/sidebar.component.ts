@@ -45,6 +45,9 @@ export class SidebarComponent implements OnInit {
     this.http.get<any>('http://localhost:8080/atwd/index.php/market/field')
       .subscribe({
         next: (res) => {
+          if(res['Code'] != 200){
+            alert(res['Message']);
+          } 
           this.region = res['Data']['region'];
           this.bussiness_hour = res['Data']['bussinessHour'];
           this.district = res['Data']['district'];
@@ -60,6 +63,9 @@ export class SidebarComponent implements OnInit {
     this.http.get<any>('http://localhost:8080/atwd/index.php/market')
       .subscribe({
         next: (res) => {
+          if(res['Code'] != 200){
+            alert(res['Message']);
+          } 
           console.log(res);
           this.marketListToParent = res['Data'];
           this.msgToParent();
@@ -85,6 +91,9 @@ export class SidebarComponent implements OnInit {
     this.http.get<any>('http://localhost:8080/atwd/index.php/market/field/district/' + region)
       .subscribe({
         next: (res) => {
+          if(res['Code'] != 200){
+            alert(res['Message']);
+          } 
           this.district = res['Data']['district'];
         },
         error: (err) => {
@@ -104,6 +113,9 @@ export class SidebarComponent implements OnInit {
     this.http.get<any>(`http://localhost:8080/atwd/index.php/market/search/${lang}/${search_name}/${search_region}/${search_district}/${tcStr}`)
       .subscribe({
         next: (res) => {
+          if(res['Code'] != 200){
+            alert(res['Message']);
+          } 
           this.marketListToParent = res['Data'];
           console.log(res);
           this.msgToParent();
