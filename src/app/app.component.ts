@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
   mainToModal: any;
   dialogConfig = new MatDialogConfig();
   createModalDialog: MatDialogRef<CreateModalComponent, any> | undefined;
+  updateModalComponent: MatDialogRef<UpdateModalComponent, any> | undefined;
+  deleteModalComponent: MatDialogRef<DeleteModalComponent, any> | undefined;
   matDialog: MatDialog;
 
   getMsgFromSidebar(event: any) {
@@ -27,15 +29,18 @@ export class AppComponent implements OnInit {
     this.mainToModal = event;
     if(this.mainToModal['action'] == 'add'){
       this.dialogConfig.id = "createModalComponent";
+      this.dialogConfig.height = "80%";
       this.createModalDialog = this.matDialog.open(CreateModalComponent, this.dialogConfig);
     }
     if(this.mainToModal['action'] == 'edit'){
       this.dialogConfig.id = "updateModalComponent";
-      this.createModalDialog = this.matDialog.open(UpdateModalComponent, this.dialogConfig);
+      this.dialogConfig.height = "80%";
+      this.updateModalComponent = this.matDialog.open(UpdateModalComponent, this.dialogConfig);
     }
     if(this.mainToModal['action'] == 'detail'){
       this.dialogConfig.id = "deleteModalComponent";
-      this.createModalDialog = this.matDialog.open(DeleteModalComponent, this.dialogConfig);
+      this.dialogConfig.height = "80%";
+      this.deleteModalComponent = this.matDialog.open(DeleteModalComponent, this.dialogConfig);
     }
   }
 

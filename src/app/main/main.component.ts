@@ -34,11 +34,12 @@ export class MainComponent implements OnInit {
     this.callParent.emit(this.actionToModal);
   }
 
-  setModal(action: String, mID: number | null = null){
+  setModal(event: any, action: String, mID: number | null = null){
     this.actionToModal.action = action;
     this.actionToModal.mID = mID;
     console.log(action);
     console.log(this.actionToModal);
     this.msgToModal();
+    event.preventDefault();
   }
 }
