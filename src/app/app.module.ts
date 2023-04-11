@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from './main/main.component';
-import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import { ModalComponent } from './modal/modal.component';
     HeaderComponent,
     SidebarComponent,
     MainComponent,
-    ModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MainComponent } from './main/main.component';
-import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-root',
