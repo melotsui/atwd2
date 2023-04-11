@@ -20,10 +20,10 @@ export class CreateModalComponent implements OnInit {
   constructor(dialogRef: MatDialogRef<CreateModalComponent>, fb: FormBuilder, http: HttpClient) {
     this.dialogRef = dialogRef;
     this.http = http;
+    this.fb = fb;
     this.tcList = null;
     this.region = null;
     this.district = null;
-    this.fb = fb;
     this.createMarketForm = fb.group({
       modalMarketID: ['', Validators.required],
       modalName_e: ['', Validators.required],

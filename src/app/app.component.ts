@@ -40,7 +40,10 @@ export class AppComponent implements OnInit {
     if(this.mainToModal['action'] == 'detail'){
       this.dialogConfig.id = "deleteModalComponent";
       this.dialogConfig.height = "80%";
-      this.deleteModalComponent = this.matDialog.open(DeleteModalComponent, this.dialogConfig);
+      const params = {
+        mID: this.mainToModal['mID'],
+      };
+      this.deleteModalComponent = this.matDialog.open(DeleteModalComponent,{...this.dialogConfig, data: params});
     }
   }
 
