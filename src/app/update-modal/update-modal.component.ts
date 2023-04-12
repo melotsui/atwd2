@@ -58,30 +58,34 @@ export class UpdateModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() {
-    this.loadFields();
+  async ngOnInit() {
+    const fieldData = await this.loadFields();
+    console.log(fieldData);
+    if(fieldData){
+      this.region = fieldData['region'];
+      this.district = fieldData['district'];
+    }
     this.loadMarketDetail();
   }
 
-  loadFields() {
-    this.http.get<any>('http://localhost:8080/atwd/index.php/market/field')
-      .subscribe({
-        next: (res) => {
-          if (res['Code'] != 200) {
-            alert(res['Message']);
-          }
-          this.region = res['Data']['region'];
-          this.district = res['Data']['district'];
-        },
-        error: (err) => {
-          console.log(`Server call failed: ${err}`);
-          alert(`Server call failed: ${err}`);
-        }
-      });
+  async loadFields(): Promise<any> {
+    try {
+      const res = await this.http.get<any>('http://localhost:8080/atwd/index.php/market/field').toPromise();
+      if (res['Code'] !== 200) {
+        alert(res['Message']);
+        return null;
+      }
+      return res['Data'];
+    } catch (err) {
+      console.log(`Server call failed: ${err}`);
+      alert(`Server call failed: ${err}`);
+      return null;
+    }
   }
 
   onChangeRegion() {
     const selectedRegion = this.updateMarketForm.get('modalRegion_e')?.value;
+    console.log(this.region);
     const regionObj = this.region.find((r: any) => r.region_e === selectedRegion);
     if (regionObj) {
       this.updateMarketForm.get('modalRegion_c')?.setValue(regionObj?.region_c);
@@ -102,6 +106,10 @@ export class UpdateModalComponent implements OnInit {
       this.updateMarketForm.get('modalRegion_c')?.setValue('');
     }
     this.resetModalDistrict();
+  }
+
+  getDistrictByRegion(){
+    
   }
 
   onChangeDistrict() {
@@ -138,7 +146,7 @@ export class UpdateModalComponent implements OnInit {
   }
 
   setFormValues(response: any) {
-    this.updateMarketForm.get('modalRegion_e')?.setValue(response.Region_e);
+    this.updateMarketForm.controls['modalRegion_e'].setValue(response.Region_e);
     this.onChangeRegion();
     this.updateMarketForm.patchValue({
       modalMarketID: response.Market_ID,

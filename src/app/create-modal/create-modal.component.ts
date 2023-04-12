@@ -27,7 +27,7 @@ export class CreateModalComponent implements OnInit {
     this.region = null;
     this.district = null;
     this.createMarketForm = fb.group({
-      modalMarketID: ['', Validators.required],
+      modalMarketID: [''],
       modalName_e: ['', [Validators.required, this.customValidator]],
       modalName_c: ['', [Validators.required, this.customValidator]],
       modalRegion_e: ['', [Validators.required, this.customValidator]],
@@ -152,52 +152,53 @@ export class CreateModalComponent implements OnInit {
 
   onSubmit(formValue: any): void {
     // Submit form data to server
-    if (this.createMarketForm.invalid) {
-      this.scrollToTop();
-      return;
-    }
-    const url = "http://localhost:8080/atwd/index.php/market";
+    if (this.createMarketForm.valid) {
+      const url = "http://localhost:8080/atwd/index.php/market";
+      
+      // Filter the Tenancy_Commodity array to only include objects with a nos_stall value > 0
+      const filteredTenancyCommodity = formValue.modal_tc.filter((tc: any) => tc.nos_stall > 0);
+      
+      const marketData = {
+        Market_Name_e: formValue.modalName_e,
+        Market_Name_c: formValue.modalName_c,
+        Region_e: formValue.modalRegion_e,
+        Region_c: formValue.modalRegion_c,
+        District_e: formValue.modalDistrict_e,
+        District_c: formValue.modalDistrict_c,
+        Address_e: formValue.modalAddress_e,
+        Address_c: formValue.modalAddress_c,
+        Bussiness_Hour_e: formValue.modalBH_e,
+        Bussiness_Hour_c: formValue.modalBH_c,
+        Coordinate: formValue.modalCoordinate,
+        Contact_1: formValue.modalContact1,
+        Contact_2: formValue.modalContact2,
+        isActive: true,
+        Tenancy_Commodity: filteredTenancyCommodity
+      };
     
-    // Filter the Tenancy_Commodity array to only include objects with a nos_stall value > 0
-    const filteredTenancyCommodity = formValue.modal_tc.filter((tc: any) => tc.nos_stall > 0);
-    
-    const marketData = {
-      Market_Name_e: formValue.modalName_e,
-      Market_Name_c: formValue.modalName_c,
-      Region_e: formValue.modalRegion_e,
-      Region_c: formValue.modalRegion_c,
-      District_e: formValue.modalDistrict_e,
-      District_c: formValue.modalDistrict_c,
-      Address_e: formValue.modalAddress_e,
-      Address_c: formValue.modalAddress_c,
-      Bussiness_Hour_e: formValue.modalBH_e,
-      Bussiness_Hour_c: formValue.modalBH_c,
-      Coordinate: formValue.modalCoordinate,
-      Contact_1: formValue.modalContact1,
-      Contact_2: formValue.modalContact2,
-      isActive: true,
-      Tenancy_Commodity: filteredTenancyCommodity
-    };
+      console.log(marketData)
   
-    console.log(marketData)
-
-    this.http.post<any>(url, marketData).subscribe({
-      next: (res) => {
-        console.log(res);
-        if(res['Code'] != 200){
-          alert(res['Message']);
-        } else {
-          alert('Market added successfully');
-          this.closeModal();
-          this.sharedService.updateMarketList.emit();
+      this.http.post<any>(url, marketData).subscribe({
+        next: (res) => {
+          console.log(res);
+          if(res['Code'] != 200){
+            alert(res['Message']);
+          } else {
+            alert('Market added successfully');
+            this.closeModal();
+            this.sharedService.updateMarketList.emit();
+          }
+        },
+        error: (err) => {
+          console.log("Error submitting market data:");
+          console.log(err);
+          alert('Error submitting market data:' + err);
         }
-      },
-      error: (err) => {
-        console.log("Error submitting market data:");
-        console.log(err);
-        alert('Error submitting market data:' + err);
-      }
-    });
+      });
+    } else {
+      console.log('invalid');
+      this.scrollToTop();
+    }
   }
   
 }
