@@ -4,7 +4,7 @@
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
     </div>
 
-    <form [formGroup]="updateMarketForm" (ngSubmit)="onSubmit(updateMarketForm.value)">
+    <form [formGroup]="deleteMarketForm" (ngSubmit)="onSubmit(deleteMarketForm.value)">
         <div class="modal-body">
             <div class="input-group mb-2" style="display: none;">
                 <span class="input-group-text col-sm-4" id="basic-addon1">Market ID</span>
@@ -86,7 +86,7 @@
             </div>
             <!-- End Contact -->
             <!-- Tenancy Commodity -->
-            <div class="row mb-3" *ngIf="updateMarketForm.value.modal_tc != null">
+            <div class="row mb-3" *ngIf="deleteMarketForm.value.modal_tc != null">
                 <div class="col-sm-12" formGroupName="modal_tc">
                     <table class="table table-striped">
                         <thead>
@@ -97,7 +97,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of updateMarketForm.value.modal_tc; let i = index" [formGroupName]="i">
+                            <tr *ngFor="let item of deleteMarketForm.value.modal_tc; let i = index" [formGroupName]="i">
                                 <td>{{item['Tenancy_Commodity_e']}}</td>
                                 <td>{{item['Tenancy_Commodity_c']}}</td>
                                 <td><input type="number" class="form-control" formControlName="nos_stall"
@@ -110,7 +110,7 @@
             <!-- End Tenancy Commodity -->
             <!-- Google Map -->
             <div id="map-container-google-2" class="z-depth-1-half map-container"
-                *ngIf="updateMarketForm.value.modalCoordinate != ''">
+                *ngIf="deleteMarketForm.value.modalCoordinate != ''">
                 <iframe [src]="iframeUrl" frameborder="0" style="border:0" allowfullscreen style="width:100%;"></iframe>
             </div>
             <!-- End Google Map -->

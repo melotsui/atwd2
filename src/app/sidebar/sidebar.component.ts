@@ -5,6 +5,7 @@ import { Region } from './region.model';
 import { Bussiness_Hour } from './business_hour.model';
 import { District } from './district.model';
 import { TC } from './tc.model';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +22,7 @@ export class SidebarComponent implements OnInit {
   @Output() callParent = new EventEmitter();
   marketListToParent: any[];
 
-  constructor(fb: FormBuilder, http: HttpClient) {
+  constructor(private sharedService: SharedService, fb: FormBuilder, http: HttpClient) {
     this.sideBarForm = fb.group({
       'search_name': '',
       'search_region': '',
@@ -34,6 +35,10 @@ export class SidebarComponent implements OnInit {
     this.district = [];
     this.tc = [];
     this.marketListToParent = [];
+    this.sharedService.updateMarketList.subscribe(() => {
+      this.onChangeSearch();
+    });
+
   }
 
   ngOnInit() {

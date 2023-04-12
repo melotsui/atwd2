@@ -1,3 +1,4 @@
+<div #scrollMe></div>
 <div class="modal-content ">
     <div class="modal-header">
         <h2 class="modal-title" id="confirmDeleteModalLabel">Add</h2>
@@ -15,24 +16,36 @@
             <!-- Market Name -->
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">Market Name</span>
-                <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalName_e"
-                    formControlName="modalName_e">
+                <input type="text" id="modalName_e" formControlName="modalName_e" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalName_e')?.invalid && createMarketForm.get('modalName_e')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalName_e')?.invalid && createMarketForm.get('modalName_e')?.touched">
+                    Please provide a valid market name in English.
+                </div>
             </div>
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">街市</span>
-                <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalName_c"
-                    formControlName="modalName_c">
+                <input type="text" id="modalName_c" formControlName="modalName_c" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalName_c')?.invalid && createMarketForm.get('modalName_c')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalName_c')?.invalid && createMarketForm.get('modalName_c')?.touched">
+                    Please provide a valid market name in Chinese.
+                </div>
             </div>
             <!-- End Market Name -->
             <!-- Region -->
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">Region</span>
-                <select class="form-select col-sm-9" aria-label="Default select example"
-                (change)="onChangeRegion();" id="modalRegion_e"
-                    formControlName="modalRegion_e">
+                <select class="form-select col-sm-9" aria-label="Default select example" (change)="onChangeRegion();"
+                    id="modalRegion_e" formControlName="modalRegion_e"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalRegion_e')?.invalid && createMarketForm.get('modalRegion_e')?.touched}">
                     <option selected value=""></option>
                     <option *ngFor="let item of region" [ngValue]="item.region_e">{{item.region_e}}</option>
                 </select>
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalRegion_e')?.invalid && createMarketForm.get('modalRegion_e')?.touched">
+                    Please select a region.
+                </div>
             </div>
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">區域</span>
@@ -44,58 +57,89 @@
             <div *ngIf="createMarketForm.value.modalRegion_e != ''">
                 <div class="input-group mb-2">
                     <span class="input-group-text col-sm-4" id="basic-addon1">District</span>
-                    <select class="form-select col-sm-9" aria-label="Default select example" (change)="onChangeDistrict();"
-                        id="modalDistrict_e" formControlName="modalDistrict_e" >
+                    <select class="form-select col-sm-9" aria-label="Default select example"
+                        (change)="onChangeDistrict();" id="modalDistrict_e" formControlName="modalDistrict_e"
+                        [ngClass]="{'is-invalid': createMarketForm.get('modalDistrict_e')?.invalid && createMarketForm.get('modalDistrict_e')?.touched}">
                         <option selected value=""></option>
                         <option *ngFor="let item of district" [ngValue]="item.District_e">{{item.District_e}}</option>
                     </select>
-                    <!-- <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalDistrict_e"  > -->
+                    <div class="invalid-feedback"
+                        *ngIf="createMarketForm.get('modalDistrict_e')?.invalid && createMarketForm.get('modalDistrict_e')?.touched">
+                        Please select a district.
+                    </div>
                 </div>
                 <div class="input-group mb-2">
                     <span class="input-group-text col-sm-4" id="basic-addon1">地區</span>
-                    <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalDistrict_c"
-                        style="background-color:#f8f9fa;" formControlName="modalDistrict_c" readonly>
+                    <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1"
+                        id="modalDistrict_c" style="background-color:#f8f9fa;" formControlName="modalDistrict_c"
+                        readonly>
                 </div>
             </div>
             <!-- End District -->
             <!-- Address -->
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">Address</span>
-                <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalAddress_e"
-                    formControlName="modalAddress_e">
+                <input type="text" id="modalAddress_e" formControlName="modalAddress_e" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalAddress_e')?.invalid && createMarketForm.get('modalAddress_e')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalAddress_e')?.invalid && createMarketForm.get('modalAddress_e')?.touched">
+                    Please provide a valid address in English.
+                </div>
             </div>
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">地址</span>
-                <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalAddress_c"
-                    formControlName="modalAddress_c">
+                <input type="text" id="modalAddress_c" formControlName="modalAddress_c" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalAddress_c')?.invalid && createMarketForm.get('modalAddress_c')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalAddress_c')?.invalid && createMarketForm.get('modalAddress_c')?.touched">
+                    Please provide a valid address in Chinese.
+                </div>
             </div>
             <!-- End Address -->
             <!-- Business Hours -->
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">Business Hours</span>
-                <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalBH_e"
-                    formControlName="modalBH_e">
+                <input type="text" id="modalBH_e" formControlName="modalBH_e" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalBH_e')?.invalid && createMarketForm.get('modalBH_e')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalBH_e')?.invalid && createMarketForm.get('modalBH_e')?.touched">
+                    Please provide valid business hours in English.
+                </div>
             </div>
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">營業時間</span>
-                <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalBH_c"
-                    formControlName="modalBH_c">
+                <input type="text" id="modalBH_c" formControlName="modalBH_c" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalBH_c')?.invalid && createMarketForm.get('modalBH_c')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalBH_c')?.invalid && createMarketForm.get('modalBH_c')?.touched">
+                    Please provide valid business hours in Chinese.
+                </div>
             </div>
             <!-- End Business Hours -->
             <!-- Contact -->
             <div class="input-group mb-2">
-                <span class="input-group-text col-sm-4" id="basic-addon1">Contact 聯絡電話</span>
-                <input type="text" class="form-control col-sm-4" aria-describedby="basic-addon1" id="modalContact1"
-                    formControlName="modalContact1">
-                <input type="text" class="form-control col-sm-4" aria-describedby="basic-addon1" id="modalContact2"
-                    formControlName="modalContact2">
+                <span class="input-group-text col-sm-4" id="basic-addon1">Contact</span>
+                <input type="text" id="modalContact1" formControlName="modalContact1" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalContact1')?.invalid && createMarketForm.get('modalContact1')?.touched}">
+                <input type="text" id="modalContact2" formControlName="modalContact2" class="form-control"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalContact2')?.invalid && createMarketForm.get('modalContact2')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalContact2')?.invalid && createMarketForm.get('modalContact2')?.touched || createMarketForm.get('modalContact1')?.invalid && createMarketForm.get('modalContact1')?.touched">
+                    Please provide a valid contact number.
+                </div>
             </div>
+            <!-- End Contact -->
             <div class="input-group mb-2">
                 <span class="input-group-text col-sm-4" id="basic-addon1">Coordinate</span>
                 <input type="text" class="form-control col-sm-8" aria-describedby="basic-addon1" id="modalCoordinate"
-                    formControlName="modalCoordinate">
+                    formControlName="modalCoordinate"
+                    [ngClass]="{'is-invalid': createMarketForm.get('modalCoordinate')?.invalid && createMarketForm.get('modalCoordinate')?.touched}">
+                <div class="invalid-feedback"
+                    *ngIf="createMarketForm.get('modalCoordinate')?.invalid && createMarketForm.get('modalCoordinate')?.touched">
+                    Please provide a valid coordinate.
+                </div>
+
             </div>
-            <!-- End Contact -->
             <!-- Tenancy Commodity -->
             <div class="row mb-3" *ngIf="tcList != null">
                 <div class="col-sm-12" formGroupName="modal_tc">

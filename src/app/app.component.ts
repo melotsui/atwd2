@@ -30,16 +30,22 @@ export class AppComponent implements OnInit {
     if(this.mainToModal['action'] == 'add'){
       this.dialogConfig.id = "createModalComponent";
       this.dialogConfig.height = "80%";
+      this.dialogConfig.width = "50%";
       this.createModalDialog = this.matDialog.open(CreateModalComponent, this.dialogConfig);
     }
     if(this.mainToModal['action'] == 'edit'){
       this.dialogConfig.id = "updateModalComponent";
       this.dialogConfig.height = "80%";
-      this.updateModalComponent = this.matDialog.open(UpdateModalComponent, this.dialogConfig);
+      this.dialogConfig.width = "50%";
+      const params = {
+        mID: this.mainToModal['mID'],
+      };
+      this.updateModalComponent = this.matDialog.open(UpdateModalComponent,{...this.dialogConfig, data: params});
     }
     if(this.mainToModal['action'] == 'detail'){
       this.dialogConfig.id = "deleteModalComponent";
       this.dialogConfig.height = "80%";
+      this.dialogConfig.width = "50%";
       const params = {
         mID: this.mainToModal['mID'],
       };

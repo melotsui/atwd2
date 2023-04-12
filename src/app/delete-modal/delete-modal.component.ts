@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, Form, FormArray } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SharedService } from '../shared.service';
+
 @Component({
   selector: 'app-delete-modal',
   templateUrl: './delete-modal.component.html',
@@ -11,17 +13,17 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class DeleteModalComponent implements OnInit {
   dialogRef: MatDialogRef<DeleteModalComponent>;
   http: HttpClient;
-  updateMarketForm: FormGroup;
+  deleteMarketForm: FormGroup;
   fb: FormBuilder;
   data: any;
   iframeUrl: SafeResourceUrl;
 
-  constructor(dialogRef: MatDialogRef<DeleteModalComponent>, @Inject(MAT_DIALOG_DATA) data: any, fb: FormBuilder, http: HttpClient, public sanitizer: DomSanitizer) {
+  constructor(private sharedService: SharedService, dialogRef: MatDialogRef<DeleteModalComponent>, @Inject(MAT_DIALOG_DATA) data: any, fb: FormBuilder, http: HttpClient, public sanitizer: DomSanitizer) {
     this.http = http;
     this.fb = fb;
     this.dialogRef = dialogRef;
     this.data = data;
-    this.updateMarketForm = fb.group({
+    this.deleteMarketForm = fb.group({
       modalMarketID: ['', Validators.required],
       modalName_e: ['', Validators.required],
       modalName_c: ['', Validators.required],
@@ -38,7 +40,7 @@ export class DeleteModalComponent implements OnInit {
       modalCoordinate: ['22.29123,114.20548', Validators.required],
       modal_tc: fb.array([])
     });
-    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.updateMarketForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.deleteMarketForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
   }
 
   closeModal() {
@@ -68,7 +70,7 @@ export class DeleteModalComponent implements OnInit {
   }
 
   setFormValues(response: any) {
-    this.updateMarketForm.patchValue({
+    this.deleteMarketForm.patchValue({
       modalMarketID: response.Market_ID,
       modalName_e: response.Market_Name_e,
       modalName_c: response.Market_Name_c,
@@ -84,9 +86,9 @@ export class DeleteModalComponent implements OnInit {
       modalContact2: response.Contact_2,
       modalCoordinate: response.Coordinate
     });
-    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.updateMarketForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.deleteMarketForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
     // Set Tenancy_Commodity values using FormArray
-    const tcArray = this.updateMarketForm.get('modal_tc') as FormArray;
+    const tcArray = this.deleteMarketForm.get('modal_tc') as FormArray;
     tcArray.clear();
 
     response.Tenancy_Commodity.forEach((tc: any) => {
@@ -97,7 +99,7 @@ export class DeleteModalComponent implements OnInit {
         nos_stall: tc.nos_stall
       }));
     });
-    console.log(this.updateMarketForm.value);
+    console.log(this.deleteMarketForm.value);
   }
 
 
@@ -115,6 +117,7 @@ export class DeleteModalComponent implements OnInit {
         } else {
           alert('Market deleted successfully');
           this.closeModal();
+          this.sharedService.updateMarketList.emit();
         }
       },
       error: (err) => {
