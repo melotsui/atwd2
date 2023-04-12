@@ -87,6 +87,7 @@ export class CreateModalComponent implements OnInit {
           alert(res['Message']);
         } else {
           alert('Market added successfully');
+          this.closeModal();
         }
       },
       error: (err) => {

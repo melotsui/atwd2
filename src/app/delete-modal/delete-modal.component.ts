@@ -38,7 +38,7 @@ export class DeleteModalComponent implements OnInit {
       modalCoordinate: ['22.29123,114.20548', Validators.required],
       modal_tc: fb.array([])
     });
-    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+this.updateMarketForm.value.modalCoordinate+'&t=&z=13&ie=UTF8&iwloc=&output=embed');
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.updateMarketForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
   }
 
   closeModal() {
@@ -51,7 +51,7 @@ export class DeleteModalComponent implements OnInit {
   }
 
   loadMarketDetail() {
-    this.http.delete<any>('http://localhost:8080/atwd/index.php/market/mID/' + this.data['mID'])
+    this.http.get<any>('http://localhost:8080/atwd/index.php/market/mID/' + this.data['mID'])
       .subscribe({
         next: (res) => {
           if (res['Code'] != 200) {
@@ -84,7 +84,7 @@ export class DeleteModalComponent implements OnInit {
       modalContact2: response.Contact_2,
       modalCoordinate: response.Coordinate
     });
-    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+this.updateMarketForm.value.modalCoordinate+'&t=&z=13&ie=UTF8&iwloc=&output=embed');
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q=' + this.updateMarketForm.value.modalCoordinate + '&t=&z=13&ie=UTF8&iwloc=&output=embed');
     // Set Tenancy_Commodity values using FormArray
     const tcArray = this.updateMarketForm.get('modal_tc') as FormArray;
     tcArray.clear();
@@ -102,6 +102,26 @@ export class DeleteModalComponent implements OnInit {
 
 
   onSubmit(formValue: any): void {
+    // Submit form data to server
+    const url = "http://localhost:8080/atwd/index.php/market/mID/" + this.data['mID'];
 
+    // Filter the Tenancy_Commodity array to only include objects with a nos_stall value > 0
+    console.log(url);
+    this.http.delete<any>(url).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res['Code'] != 200) {
+          alert(res['Message']);
+        } else {
+          alert('Market deleted successfully');
+          this.closeModal();
+        }
+      },
+      error: (err) => {
+        console.log("Error submitting market data:");
+        console.log(err);
+        alert('Error submitting market data:' + err);
+      }
+    });
   }
 }

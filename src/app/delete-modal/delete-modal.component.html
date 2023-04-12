@@ -86,18 +86,32 @@
             </div>
             <!-- End Contact -->
             <!-- Tenancy Commodity -->
-            <div class="row mb-3">
-                <!-- <legend class="col-form-label col-sm-12 pt-0" >Tenancy Commodity</legend> -->
-                <div class="col-sm-12" id="modal_tc">
-
-
+            <div class="row mb-3" *ngIf="updateMarketForm.value.modal_tc != null">
+                <div class="col-sm-12" formGroupName="modal_tc">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tenancy Commodity</th>
+                                <th scope="col"></th>
+                                <th scope="col">Nos Stall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of updateMarketForm.value.modal_tc; let i = index" [formGroupName]="i">
+                                <td>{{item['Tenancy_Commodity_e']}}</td>
+                                <td>{{item['Tenancy_Commodity_c']}}</td>
+                                <td><input type="number" class="form-control" formControlName="nos_stall"
+                                        style="background-color:#f8f9fa;" readonly></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- End Tenancy Commodity -->
             <!-- Google Map -->
-            <div id="map-container-google-2" class="z-depth-1-half map-container" *ngIf="updateMarketForm.value.modalCoordinate != ''">
-                <iframe [src]="iframeUrl"
-                    frameborder="0" style="border:0" allowfullscreen style="width:100%;"></iframe>
+            <div id="map-container-google-2" class="z-depth-1-half map-container"
+                *ngIf="updateMarketForm.value.modalCoordinate != ''">
+                <iframe [src]="iframeUrl" frameborder="0" style="border:0" allowfullscreen style="width:100%;"></iframe>
             </div>
             <!-- End Google Map -->
             <!-- Modal Button -->
@@ -105,8 +119,7 @@
                 <button type="button" class="btn btn-secondary" id="btnModalCancel"
                     (click)="closeModal()">Cancel</button>
                 <div style="padding-left: 15px;">
-                    <button type="button" class="btn btn-primary" id="modalDeleteButton"
-                        onclick="goDelete()">Delete</button>
+                    <button type="submit" class="btn btn-primary" id="modalDeleteButton">Delete</button>
                 </div>
                 <!-- End Modal Button -->
             </div>
