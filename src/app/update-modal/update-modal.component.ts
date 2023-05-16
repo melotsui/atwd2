@@ -219,6 +219,10 @@ export class UpdateModalComponent implements OnInit {
       this.scrollToTop();
       return;
     }
+    let text = "Are you sure you want to edit the details of " + this.updateMarketForm.value.modalName_e + "?";
+    if (confirm(text) != true) { 
+      return;
+    } 
     const url = "http://localhost:8080/atwd/index.php/market";
 
     // Filter the Tenancy_Commodity array to only include objects with a nos_stall value > 0

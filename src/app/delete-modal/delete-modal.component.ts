@@ -105,6 +105,10 @@ export class DeleteModalComponent implements OnInit {
 
   onSubmit(formValue: any): void {
     // Submit form data to server
+    let text = "Are you sure you want to delete " + this.deleteMarketForm.value.modalName_e + "?";
+    if (confirm(text) != true) { 
+      return;
+    } 
     const url = "http://localhost:8080/atwd/index.php/market/mID/" + this.data['mID'];
 
     // Filter the Tenancy_Commodity array to only include objects with a nos_stall value > 0
